@@ -8,7 +8,7 @@ import {doc, getDoc} from "firebase/firestore"
 
 export const ItemDetailContainer = () => {
   const { productId } = useParams();
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState();
 
  useEffect(() => {
   const getProducto=async() =>{
@@ -30,7 +30,7 @@ export const ItemDetailContainer = () => {
 
   return (
     <div>
-      <ItemDetail productos={items} />
+      <ItemDetail {...items}/>
     </div>
   );
 };

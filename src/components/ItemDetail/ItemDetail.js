@@ -4,36 +4,39 @@ import { CartContext } from "../CartContext/CartContext";
 import { useState, useContext } from "react";
 
 
-export const ItemDetail = ({ productos, productId }) => {
+export const ItemDetail = ({ id, name, price, image, category, description }) => {
   const {addItem}=useContext(CartContext)
-  const [producto, setProducto] = useState(null);
+  const [producto, setProducto] = useState();
 
 
   const onAdd=(contador) =>{
     console.log(`Recibo ${contador}`)
     // console.log("producto", producto)
-    addItem(producto, productId, contador)
-  } 
-
-
-  useEffect(() => {
-    let prod;
-    if (productos) {
-      prod = productos?.filter((item) => item.id === Number(productId));
-      setProducto(prod[0]);
+    
+    const productToAdd = {
+      id,
+      name,
+      price,
+      image,
+      category,
+      description,
     }
-  }, [productos]);
 
+      if (contador>0) {
+        addItem(productToAdd,contador)
+       };
+      } ;
+    
   return (
-
     <div>
-      <p>
+      <div>
+        <h1>{id}</h1>
+        <div>{name}</div>
+        <div>{producto?.price}</div>
         <img src={producto?.image} alt="" />
-        <h1>{producto?.name}</h1>
-        <p>{producto?.description}</p>
-        <p>{producto?.price}</p>
-      </p>
-
+        <h1>{category}</h1>
+        <div>{producto?.description}</div>
+      </div>
        <p>
         <ItemCount initial={1} stock={10} onAdd={onAdd}/>
       </p>
